@@ -20,17 +20,17 @@ import java.io.InputStream;
 import java.util.Properties;
 
 @Configuration
-@EnableJpaRepositories("com.evenger.server.repository")
 @EnableTransactionManagement
 @ComponentScan("com.evenger.server")
 @PropertySource("classpath:db.properties")
+@EnableJpaRepositories("com.evenger.server.repository")
 public class DatabaseConfig
 {
     @Resource
     private Environment environment;
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean()
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory()
     {
         LocalContainerEntityManagerFactoryBean entityManager = new LocalContainerEntityManagerFactoryBean();
         entityManager.setDataSource(dataSource());
@@ -65,7 +65,7 @@ public class DatabaseConfig
     public PlatformTransactionManager transactionManager()
     {
         JpaTransactionManager manager = new JpaTransactionManager();
-        manager.setEntityManagerFactory(entityManagerFactoryBean().getObject());
+        manager.setEntityManagerFactory(entityManagerFactory().getObject());
 
         return manager;
     }
