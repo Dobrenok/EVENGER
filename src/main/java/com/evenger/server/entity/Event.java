@@ -1,26 +1,54 @@
 package com.evenger.server.entity;
 
+import com.evenger.server.entity.enums.Category;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Date;
+
+import static javax.persistence.CascadeType.*;
 
 @Entity
 @Table(name = "Event")
 public class Event
 {
-    //Temp
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private long id;
 
-    @Column(name = "name", nullable = false, length = 100)
-    private String name;
+    @Column(name = "title", nullable = false)
+    private String title;
 
-    @Column(name = "count", nullable = false)
-    private int count;
+    @Column(name = "date", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date;
 
-    public Event() {}
+    @Column(name = "address", nullable = false)
+    private String address;
+
+    @Column(name = "maxNumberOfPeople", nullable = false)
+    private int maxNumberOfPeople;
+
+    @Column(name = "description", nullable = false)
+    private String description;
+
+    @Column(name = "category", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Category category;
+
+    @Column(name = "currentNumberOfPeople", nullable = false)
+    private int currentNumberOfPeople;
+
+    @Column(name = "numberOfLikes", nullable = false)
+    private int numberOfLikes;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {PERSIST, MERGE, REMOVE, REFRESH, DETACH})
+    @JoinColumn(name = "author_id", nullable = false)
+    private User author;
+
+    public Event() {
+    }
 
     public long getId() {
         return id;
@@ -30,19 +58,75 @@ public class Event
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public int getCount() {
-        return count;
+    public Date getDate() {
+        return date;
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public int getMaxNumberOfPeople() {
+        return maxNumberOfPeople;
+    }
+
+    public void setMaxNumberOfPeople(int maxNumberOfPeople) {
+        this.maxNumberOfPeople = maxNumberOfPeople;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public int getCurrentNumberOfPeople() {
+        return currentNumberOfPeople;
+    }
+
+    public void setCurrentNumberOfPeople(int currentNumberOfPeople) {
+        this.currentNumberOfPeople = currentNumberOfPeople;
+    }
+
+    public int getNumberOfLikes() {
+        return numberOfLikes;
+    }
+
+    public void setNumberOfLikes(int numberOfLikes) {
+        this.numberOfLikes = numberOfLikes;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 }

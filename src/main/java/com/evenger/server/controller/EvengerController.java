@@ -22,7 +22,9 @@ public class EvengerController
     @RequestMapping(value = "/event", method = RequestMethod.GET)
     public @ResponseBody List<Event> getEvent(ModelMap model)
     {
-        return repository.findAll();
+        List<Event> events = repository.findAll();
+
+        return events;
     }
 
 }
