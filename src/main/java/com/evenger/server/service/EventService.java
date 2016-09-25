@@ -8,6 +8,6 @@ public interface EventService
 {
     Event addEvent(Event event);
     void delete(long id);
-    List<Event> getLastEvents(int count);
-    List<Event> getLastEvents(int count, int startIndex);
+    List<Event> getLastEvents();
+    List<Event> getLastEvents(long startIndex);
 }

@@ -6,6 +6,7 @@ import com.evenger.server.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -22,13 +23,13 @@ public class EventServiceImpl implements EventService
         eventRepository.delete(id);
     }
 
-    public List<Event> getLastEvents(int count) {
-        //TODO realisation
-        return eventRepository.findAll();
+    public List<Event> getLastEvents() {
+
+        return eventRepository.findTop3ByOrderByIdDesc();
     }
 
-    public List<Event> getLastEvents(int count, int startIndex) {
-        //TODO realisation
-        return eventRepository.findAll();
+    public List<Event> getLastEvents(long startIndex) {
+
+        return eventRepository.findTop3ByIdLessThanOrderByIdDesc(startIndex);
     }
 }
