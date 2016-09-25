@@ -9,7 +9,7 @@ import static javax.persistence.CascadeType.DETACH;
 
 @Entity
 @Table(name = "Event_user")
-public class event_user
+public class Event_user
 {
     @Id
     @GeneratedValue(generator = "increment")
@@ -24,7 +24,7 @@ public class event_user
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    public event_user() {
+    public Event_user() {
     }
 
     public long getId() {
