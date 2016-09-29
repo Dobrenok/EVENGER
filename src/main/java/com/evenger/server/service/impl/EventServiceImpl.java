@@ -32,4 +32,11 @@ public class EventServiceImpl implements EventService
 
         return eventRepository.findTop10ByIdLessThanOrderByIdDesc(startIndex);
     }
+
+    public void addLike(long id) {
+
+        Event event = eventRepository.findOne(id);
+        event.setNumberOfLikes(event.getNumberOfLikes() + 1);
+        eventRepository.saveAndFlush(event);
+    }
 }
