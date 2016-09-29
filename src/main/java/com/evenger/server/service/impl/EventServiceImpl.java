@@ -25,11 +25,11 @@ public class EventServiceImpl implements EventService
 
     public List<Event> getLastEvents() {
 
-        return eventRepository.findTop3ByOrderByIdDesc();
+        return eventRepository.findTop10ByOrderByIdDesc();
     }
 
     public List<Event> getLastEvents(long startIndex) {
 
-        return eventRepository.findTop3ByIdLessThanOrderByIdDesc(startIndex);
+        return eventRepository.findTop10ByIdLessThanOrderByIdDesc(startIndex);
     }
 }

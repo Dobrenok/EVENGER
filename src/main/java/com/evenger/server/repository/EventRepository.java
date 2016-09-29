@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface EventRepository extends JpaRepository<Event, Long>
 {
-    List<Event> findTop3ByOrderByIdDesc();
+    List<Event> findTop10ByOrderByIdDesc();
 
-    List<Event> findTop3ByIdLessThanOrderByIdDesc(long id);
+    List<Event> findTop10ByIdLessThanOrderByIdDesc(long id);
 }
