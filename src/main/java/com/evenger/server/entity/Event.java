@@ -30,7 +30,7 @@ public class Event
     @Column(name = "maxNumberOfPeople", nullable = false)
     private int maxNumberOfPeople;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = false, length = 1000)
     private String description;
 
     @Column(name = "category", nullable = false)
@@ -46,6 +46,12 @@ public class Event
     @ManyToOne(fetch = FetchType.EAGER, cascade = {PERSIST, MERGE, REMOVE, REFRESH, DETACH})
     @JoinColumn(name = "author_id", nullable = false)
     private User author;
+
+    @Column(name = "imageName")
+    private String imageName;
+
+    @Column(name = "isChecked", nullable = false)
+    private boolean isChecked;
 
     public Event() {
     }
@@ -128,5 +134,21 @@ public class Event
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 }

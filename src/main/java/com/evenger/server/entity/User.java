@@ -3,7 +3,6 @@ package com.evenger.server.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "User")
@@ -22,6 +21,9 @@ public class User
 
     @Column(name = "login", unique = true, nullable = false)
     private String login;
+
+    @Column(name = "avatarName")
+    private String avatarName;
 
     public User() {
     }
@@ -58,4 +60,11 @@ public class User
         this.login = login;
     }
 
+    public String getAvatarName() {
+        return avatarName;
+    }
+
+    public void setAvatarName(String avatarName) {
+        this.avatarName = avatarName;
+    }
 }
