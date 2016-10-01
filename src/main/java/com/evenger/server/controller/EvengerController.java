@@ -3,8 +3,17 @@ package com.evenger.server.controller;
 import com.evenger.server.dto.CommentListDTO;
 import com.evenger.server.dto.EventListDTO;
 import com.evenger.server.service.EventService;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 @RestController
 public class EvengerController
@@ -32,7 +41,7 @@ public class EvengerController
 
     @RequestMapping(value = "/comments/{startSN}", method = RequestMethod.GET)
     public @ResponseBody CommentListDTO getComments(@RequestParam(value = "eventID") long eventId,
-                                             @PathVariable("startSN") long startSN)
+                                                    @PathVariable("startSN") long startSN)
     {
         return new CommentListDTO();
     }
@@ -41,5 +50,23 @@ public class EvengerController
     public @ResponseBody void addLike(@RequestParam(value = "eventID") long eventId)
     {
         eventService.addLike(eventId);
+    }
+
+    @RequestMapping(value = "/images/{kind}", method = RequestMethod.GET)
+    public void getImage(HttpServletResponse response,
+                         @PathVariable("kind") String kind,
+                         @RequestParam(value = "name") String name) throws IOException
+    {
+        InputStream inputStream = new FileInputStream("/store/images/" + kind +"/" + name);
+
+        try
+        {
+            response.setContentType("image/jpeg");
+            IOUtils.copy(inputStream, response.getOutputStream());
+
+        } finally {
+
+            IOUtils.closeQuietly(inputStream);
+        }
     }
 }
