@@ -47,7 +47,7 @@ public class EvengerController
     }
 
     @RequestMapping(value = "/like", method = RequestMethod.POST)
-    public @ResponseBody void addLike(@RequestParam(value = "eventID") long eventId)
+    public @ResponseBody void addLike(@RequestBody long eventId)
     {
         eventService.addLike(eventId);
     }
