@@ -3,6 +3,7 @@ package com.evenger.server.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "User")
@@ -24,6 +25,15 @@ public class User
 
     @Column(name = "avatarName")
     private String avatarName;
+
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "likes")
+    private Set<Event> likeEvents;
+
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "subscribers")
+    private Set<Event> eventsSubscribed;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "author")
+    private Set<Event> ownEvents;
 
     public User() {
     }
@@ -66,5 +76,29 @@ public class User
 
     public void setAvatarName(String avatarName) {
         this.avatarName = avatarName;
+    }
+
+    public Set<Event> getLikeEvents() {
+        return likeEvents;
+    }
+
+    public void setLikeEvents(Set<Event> likeEvents) {
+        this.likeEvents = likeEvents;
+    }
+
+    public Set<Event> getEventsSubscribed() {
+        return eventsSubscribed;
+    }
+
+    public void setEventsSubscribed(Set<Event> eventsSubscribed) {
+        this.eventsSubscribed = eventsSubscribed;
+    }
+
+    public Set<Event> getOwnEvents() {
+        return ownEvents;
+    }
+
+    public void setOwnEvents(Set<Event> ownEvents) {
+        this.ownEvents = ownEvents;
     }
 }

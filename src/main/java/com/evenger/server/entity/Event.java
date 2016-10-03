@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 import static javax.persistence.CascadeType.*;
 
@@ -43,9 +44,21 @@ public class Event
     @Column(name = "numberOfLikes", nullable = false)
     private int numberOfLikes;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {PERSIST, MERGE, REMOVE, REFRESH, DETACH})
+    @ManyToMany
+    @JoinTable(name="event_user_like",
+            joinColumns = @JoinColumn(name="event_id", referencedColumnName="id"),
+            inverseJoinColumns = @JoinColumn(name="user_id", referencedColumnName="id"))
+    private Set<User> likes;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {ALL})
     @JoinColumn(name = "author_id", nullable = false)
     private User author;
+
+    @ManyToMany
+    @JoinTable(name="event_user_subscriber",
+            joinColumns = @JoinColumn(name="event_id", referencedColumnName="id"),
+            inverseJoinColumns = @JoinColumn(name="user_id", referencedColumnName="id"))
+    private Set<User> subscribers;
 
     @Column(name = "imageName")
     private String imageName;
@@ -120,14 +133,6 @@ public class Event
         this.currentNumberOfPeople = currentNumberOfPeople;
     }
 
-    public int getNumberOfLikes() {
-        return numberOfLikes;
-    }
-
-    public void setNumberOfLikes(int numberOfLikes) {
-        this.numberOfLikes = numberOfLikes;
-    }
-
     public User getAuthor() {
         return author;
     }
@@ -150,5 +155,29 @@ public class Event
 
     public void setImageName(String imageName) {
         this.imageName = imageName;
+    }
+
+    public Set<User> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(Set<User> likes) {
+        this.likes = likes;
+    }
+
+    public Set<User> getSubscribers() {
+        return subscribers;
+    }
+
+    public void setSubscribers(Set<User> subscribers) {
+        this.subscribers = subscribers;
+    }
+
+    public int getNumberOfLikes() {
+        return numberOfLikes;
+    }
+
+    public void setNumberOfLikes(int numberOfLikes) {
+        this.numberOfLikes = numberOfLikes;
     }
 }
