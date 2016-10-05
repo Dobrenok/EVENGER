@@ -26,13 +26,13 @@ public class User
     @Column(name = "avatarName")
     private String avatarName;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "likes")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "likes")
     private Set<Event> likeEvents;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "subscribers")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "subscribers")
     private Set<Event> eventsSubscribed;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "author")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "author")
     private Set<Event> ownEvents;
 
     public User() {
@@ -100,5 +100,30 @@ public class User
 
     public void setOwnEvents(Set<Event> ownEvents) {
         this.ownEvents = ownEvents;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (id != user.id) return false;
+        if (name != null ? !name.equals(user.name) : user.name != null) return false;
+        if (surname != null ? !surname.equals(user.surname) : user.surname != null) return false;
+        if (login != null ? !login.equals(user.login) : user.login != null) return false;
+        return avatarName != null ? avatarName.equals(user.avatarName) : user.avatarName == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (surname != null ? surname.hashCode() : 0);
+        result = 31 * result + (login != null ? login.hashCode() : 0);
+        result = 31 * result + (avatarName != null ? avatarName.hashCode() : 0);
+        return result;
     }
 }

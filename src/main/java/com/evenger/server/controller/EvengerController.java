@@ -46,10 +46,11 @@ public class EvengerController
         return new CommentListDTO();
     }
 
-    @RequestMapping(value = "/like", method = RequestMethod.POST)
-    public @ResponseBody void addLike(@RequestBody long eventId)
+    @RequestMapping(value = "/like/{eventId}", method = RequestMethod.POST)
+    public @ResponseBody int addLike(@PathVariable("eventId") long eventId,
+                                      @RequestBody long userId)
     {
-        eventService.addLike(eventId);
+        return eventService.addLike(eventId, userId);
     }
 
     @RequestMapping(value = "/images/{kind}", method = RequestMethod.GET)

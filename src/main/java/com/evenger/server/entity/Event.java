@@ -44,7 +44,7 @@ public class Event
     @Column(name = "numberOfLikes", nullable = false)
     private int numberOfLikes;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="event_user_like",
             joinColumns = @JoinColumn(name="event_id", referencedColumnName="id"),
             inverseJoinColumns = @JoinColumn(name="user_id", referencedColumnName="id"))
@@ -54,7 +54,7 @@ public class Event
     @JoinColumn(name = "author_id", nullable = false)
     private User author;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="event_user_subscriber",
             joinColumns = @JoinColumn(name="event_id", referencedColumnName="id"),
             inverseJoinColumns = @JoinColumn(name="user_id", referencedColumnName="id"))

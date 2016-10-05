@@ -10,5 +10,5 @@ public interface EventService
     void delete(long id);
     List<Event> getLastEvents();
     List<Event> getLastEvents(long startIndex);
-    void addLike(long id);
+    int addLike(long eventId, long userId);
 }
