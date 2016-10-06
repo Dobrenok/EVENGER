@@ -2,12 +2,12 @@ package com.evenger.server.controller;
 
 import com.evenger.server.dto.CommentListDTO;
 import com.evenger.server.dto.EventListDTO;
+
+import com.evenger.server.dto.UserWithLikesDTO;
 import com.evenger.server.service.EventService;
+import com.evenger.server.service.UserService;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +20,9 @@ public class EvengerController
 {
     @Autowired
     private EventService eventService;
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = "/feed", method = RequestMethod.GET)
     public @ResponseBody EventListDTO getFeed()
@@ -69,5 +72,11 @@ public class EvengerController
 
             IOUtils.closeQuietly(inputStream);
         }
+    }
+
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public @ResponseBody UserWithLikesDTO getUserWithLikes(@RequestParam(value = "id") long id)
+    {
+        return new UserWithLikesDTO(userService.getUser(id));
     }
 }

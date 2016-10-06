@@ -4,11 +4,11 @@ import com.evenger.server.entity.User;
 
 public class UserDTO
 {
-    private long id;
-    private String name;
-    private String surname;
-    private String login;
-    private String avatarName;
+    protected long id;
+    protected String name;
+    protected String surname;
+    protected String login;
+    protected String avatarName;
 
     public UserDTO() {
     }
